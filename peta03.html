@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <title>Peta Kota Depok</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+
+    <style>
+      #map {
+        height: 400px;
+      }
+    </style>
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      var map = L.map("map").setView([-6.402905, 106.778419], 13);
+
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }).addTo(map);
+
+      var aoi = {
+        type: "FeatureCollection",
+        features: [
+          {
+            type: "Feature",
+            properties: {
+              kampus: "Kampus B STT-NF",
+              alamat: "Srengseng Sawah Jaksel",
+            },
+            geometry: {
+              coordinates: [106.83317473217954, -6.360909467040003],
+              type: "Point",
+            },
+          },
+          {
+            type: "Feature",
+            properties: {
+              kampus: "Kampus Universitas Indonesia",
+              alamat: "Jalan Lingkar Kampus Raya",
+            },
+            geometry: {
+              coordinates: [106.82944553732995, -6.363492643107705],
+              type: "Point",
+            },
+          },
+          {
+            type: "Feature",
+            properties: {
+              kampus: "Kampus Universitas Pancasila",
+              alamat: "Jalan Lenteng Agung Barat, Jakarta",
+            },
+            geometry: {
+              coordinates: [106.83280327116108, -6.339198564487546],
+              type: "Point",
+            },
+          },
+          {
+            type: "Feature",
+            properties: {
+              kampus: "Kampus Gunadarma Kelapa Dua",
+              alamat: " Jalan Akses UI, Kelapa Dua, Kota Depok",
+            },
+            geometry: {
+              coordinates: [106.84198827116006, -6.354892891174487],
+              type: "Point",
+            },
+          },
+          {
+            type: "Feature",
+            properties: {
+              kampus: "Kampus Polimedia Srengseng",
+              alamat: "Jalan srengseng sawah,Jagakarsa, Jakarta",
+            },
+            geometry: {
+              coordinates: [106.82703627116302, -6.347444564943032],
+              type: "Point",
+            },
+          },
+        ],
+      };
+
+      var geojson = L.geoJSON(aoi, {
+        onEachFeature: function (feature, layer) {
+          layer.bindPopup(
+            feature.properties.kampus + "<br/>" + feature.properties.alamat
+          );
+        },
+      }).addTo(map);
+    </script>
+  </body>
+</html>
